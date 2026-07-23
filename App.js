@@ -302,12 +302,10 @@ function initCourbeZone() {
             style="width:100%; padding:6px; background:#003189; color:white; border:none; border-radius:4px; cursor:pointer; font-size:14px;">
             Afficher l'évolution journalière
         </button>
-        <div style="displaydata_csv:flex; justify-content:center; margin-top:6px; font-size:14px;">
+        <div style="display:flex; justify-content:center; margin-top:6px; font-size:14px;">
              <a href="https://akatebra.github.io/Stage_Fcdhere/data_csv/${hereDir}.csv" target="_blank" style="color:#003189;">Ouvrir le CSV </a>
         </div>`;
     document.getElementById('courbe-contenu').innerHTML = '';   
-//              <a href="data_csv/${hereDir}.csv" target="_blank" style="color:#003189;">Ouvrir le CSV </a>
-
 }
 
 
