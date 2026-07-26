@@ -18,7 +18,7 @@ const map = new maplibregl.Map({
                 attribution: '© IGN - Géoplateforme'
             }
         },
-        layers: [{ id: 'fond_ign', type: 'raster', source: 'fond_ign' }]
+        layers: [{ id: 'fond_ign', type: 'raster', source: 'fond_ign', paint: {'raster-opacity': 0.5}}]
     }
 });
 
@@ -351,8 +351,8 @@ function afficherCourbe() {
 
     document.getElementById('courbe-contenu').innerHTML = `
         <p style="font-size:14px; color:#333; margin:4px 0 8px;"><b>Jour le plus congestionné : (${minDate} avec Cp: ${minVal.toFixed(1)}%, Dp: ${dpCor.toFixed(2)} min/km)</b></p>
-        <div style="position:relative; height:170px; margin-bottom:12px;"><canvas id="courbe-cp-canvas"></canvas></div>
-        <div style="position:relative; height:170px;"><canvas id="courbe-dp-canvas"></canvas></div>
+        <div style="position:relative; height:175px; margin-bottom:12px;"><canvas id="courbe-cp-canvas"></canvas></div>
+        <div style="position:relative; height:175px;"><canvas id="courbe-dp-canvas"></canvas></div>
     `;
 
     if (chartCourbeCp) chartCourbeCp.destroy();
@@ -380,7 +380,7 @@ function afficherCourbe() {
 
     chartCourbeCp = new Chart(document.getElementById('courbe-cp-canvas').getContext('2d'), {
         type: 'line',
-        data: { labels: labels, datasets: [{ data: valeursCp, borderColor: couleur, backgroundColor: 'transparent', borderWidth: 1.5, pointRadius: 0, pointHoverRadius: 4, tension: 0.15 }] },
+        data: { labels: labels, datasets: [{ data: valeursCp, borderColor: couleur, backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, tension: 0.15 }] },
         options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
@@ -389,15 +389,16 @@ function afficherCourbe() {
                 tooltip: { callbacks: tooltipCp }
             },
             scales: {
-                x: { ticks: { maxTicksLimit: 6, font: { size: 9 } } },
-                y: { ticks: { font: { size: 9 } } }
+                x: { ticks: { maxTicksLimit: 11, font: { size: 11 } } },
+                y: { title: { display: true, text: '%', font: { size: 11}},
+                     ticks: { font: { size: 12 } } }
             }
         }
     });
 
     chartCourbeDp = new Chart(document.getElementById('courbe-dp-canvas').getContext('2d'), {
         type: 'line',
-        data: { labels: labels, datasets: [{ data: valeursDp, borderColor: couleur, backgroundColor: 'transparent', borderWidth: 1.5, pointRadius: 0, pointHoverRadius: 4, tension: 0.15 }] },
+        data: { labels: labels, datasets: [{ data: valeursDp, borderColor: couleur, backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, tension: 0.15 }] },
         options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
@@ -406,8 +407,9 @@ function afficherCourbe() {
                 tooltip: { callbacks: tooltipDp }
             },
             scales: {
-                x: { ticks: { maxTicksLimit: 6, font: { size: 9 } } },
-                y: { ticks: { font: { size: 9 } } }
+                x: { ticks: { maxTicksLimit: 11, font: { size: 11 } } },
+                y: { title: { display: true, text: 'min/km', font: { size: 11}},
+                    ticks: { font: { size: 12 } } }
             }
         }
     });
